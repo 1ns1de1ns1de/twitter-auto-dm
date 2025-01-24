@@ -46,7 +46,7 @@ This repository contains a Python script designed to automate the process of sen
 2. **Run the Script**:
 
    ```bash
-   python your_script_name.py
+   python dm.py
    ```
 
 3. **Main Menu Options**:

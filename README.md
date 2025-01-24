@@ -24,8 +24,8 @@ This repository contains a Python script designed to automate the process of sen
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/your-username/auto-dm-twitter-bot.git
-   cd auto-dm-twitter-bot
+   git clone https://github.com/your-username/twitter-auto-dm.git
+   cd twitter-auto-dm
    ```
 
 2. Install the required Python libraries:

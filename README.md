@@ -54,6 +54,7 @@ This repository contains a Python script designed to automate the process of sen
    - `1. Start Selenium (manual login and save cookies)`
    - `2. Start Auto DM Twitter`
    - `3. Exit`
+noted : if you login twitter account for the first time, bot will reset to save your cookies data. rerun the bot to test account data in cookies and run auto dm.
 
 4. Follow the on-screen instructions to complete the setup and start sending DMs.
 

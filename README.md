@@ -1,88 +1,115 @@
 # Auto DM Twitter Bot
 
-This repository contains a Python script designed to automate the process of sending direct messages (DMs) on Twitter using Selenium. The bot supports cookie management, dynamic message sending, and CSV logging for DM statuses.
+## Overview
+This script automates sending Direct Messages (DM) on Twitter using Selenium. It supports multiple users, reads usernames and messages from text files, and logs the DM status in a CSV file. The bot also supports cookie-based login to avoid repeated manual authentication.
 
 ## Features
+- **Automatic DM sending**: Reads usernames and messages from files and sends DMs.
+- **Cookie-based login**: Saves and loads login cookies to avoid manual authentication.
+- **Custom delay settings**: Allows setting custom delays between messages to avoid detection.
+- **Logs message status**: Saves sent message statuses in a CSV file.
+- **Manual login option**: Allows manual login if cookies are not available.
+- **Error handling**: Handles missing files and failed DM attempts gracefully.
+- **Automatic folder creation**: Ensures required directories (e.g., `cookies/`) are created if missing.
 
-- **Automated DM Sending**: Automatically sends DMs to a list of Twitter usernames.
-- **Cookie Management**: Saves and loads cookies to avoid repeated logins.
-- **Dynamic Message Input**: Reads custom messages from a text file.
-- **CSV Logging**: Logs the DM results in a CSV file for easy tracking.
+## Prerequisites
+### Install Dependencies
+Ensure you have Python installed (Python 3.x recommended). Install the required dependencies using:
+```sh
+pip install selenium chromedriver-autoinstaller tqdm colorama
+```
 
-## Requierments
-* Python 3.8 or higher
-* Google Chrome
-* ChromeDriver
-* Required Python libraries:
-  - selenium
-  - webdriver-manager
-  - tqdm
-  - colorama
+### Install ChromeDriver
+This script automatically installs the required ChromeDriver version using `chromedriver-autoinstaller`.
 
-## Installation
+## Setup Instructions
+### 1. Clone the Repository
+```sh
+git clone https://github.com/yourusername/auto-dm-twitter.git
+cd auto-dm-twitter
+```
 
-1. Clone this repository:
+### 2. Setup Twitter Login
+Before running the bot, you need to log in and save cookies:
+```sh
+python dm.py
+```
+Select option **1. Start Selenium (manual login and save cookies)** and log in manually. The bot will save cookies for future logins.
 
-   ```bash
-   git clone https://github.com/your-username/twitter-auto-dm.git
-   cd twitter-auto-dm
-   ```
+### 3. Prepare User Data
+Create the following files in the script directory:
+- `data.txt`: Contains Twitter usernames (one per line).
+- `message.txt`: Contains messages (one per line). If there are fewer messages than usernames, messages will repeat.
 
-2. Install the required Python libraries:
+Example `data.txt`:
+```
+user1
+user2
+user3
+```
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+Example `message.txt`:
+```
+Hello! How are you?
+This is an automated message.
+```
 
-3. Ensure that Google Chrome and ChromeDriver are installed and compatible with your system.
+### 4. Start Auto DM
+Run the script and select option **2. Start Auto DM Twitter**:
+```sh
+python dm.py
+```
+The bot will send messages with random delays.
 
-## Usage
+### 5. Adjust Delay Settings (Optional)
+You can customize the delay between messages by selecting **3. Update Delay Settings**.
 
-1. **Prepare Your Data**:
+## Output Files
+- **`dm_log.csv`**: Logs the status of each sent DM.
+  - Format: `Username, Status`
+  - Example:
+    ```csv
+    Username,Status
+    user1,Sent
+    user2,Failed to send DM
+    ```
+- **Cookies (`cookies/twitter_<account>.pkl`)**: Stores session cookies for automatic login.
 
-   - Create a `data.txt` file containing the list of Twitter usernames (one username per line).
-   - Create a `message.txt` file with the message you want to send.
+## Automatic Folder Creation
+The script ensures that the necessary folders are created automatically. If the `cookies` folder does not exist, it will be created at runtime:
+```python
+if not os.path.exists(COOKIES_FOLDER):
+    os.makedirs(COOKIES_FOLDER)
+```
+This ensures smooth execution without requiring manual folder creation.
 
-2. **Run the Script**:
-
-   ```bash
-   python dm.py
-   ```
-
-3. **Main Menu Options**:
-
-   - `1. Start Selenium (manual login and save cookies)`
-   - `2. Start Auto DM Twitter`
-   - `3. Exit`
-   - noted : if you login twitter account for the first time, bot will reset to save your cookies data. rerun the bot to test account data in cookies and run auto dm.
-
-4. Follow the on-screen instructions to complete the setup and start sending DMs.
-
-## File Structure
-
-- `data.txt`: List of Twitter usernames.
-- `message.txt`: Custom message to send.
-- `dm_log.csv`: Log file for DM results.
-- `cookies/`: Directory to store session cookies.
-
-## Customization
-
-- The script features a custom purple and pink theme.
-- A personalized watermark with the text "1ns1de" is displayed on the main menu.
+## Error Handling
+- If the script cannot find `data.txt` or `message.txt`, it will display an error message.
+- If a DM fails to send, it will log the failure in `dm_log.csv`.
+- If login cookies are missing, the script will prompt manual login.
 
 ## Notes
+- Ensure Chrome is installed and updated.
+- Use this bot responsibly to comply with Twitter's policies.
+- This script does **not** bypass Twitter's DM limits or restrictions.
 
-- Ensure your Twitter account complies with Twitter's policies to avoid account restrictions.
-- Use this script responsibly.
+## Contributing
+Contributions are welcome! To contribute:
+1. Fork this repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Commit your changes (`git commit -m 'Add new feature'`).
+4. Push to the branch (`git push origin feature-branch`).
+5. Open a Pull Request.
 
 ## License
+This script is provided "as is" without warranty of any kind. Use at your own risk.
 
-This project is licensed under the MIT License. See the `LICENSE` file for more details.
+## Author
+[Your Name]
 
-## Disclaimer
+## Support
+If you encounter any issues, feel free to open an issue on [GitHub](https://github.com/yourusername/auto-dm-twitter/issues).
 
-This script is for educational purposes only. The author is not responsible for any misuse or consequences resulting from the use of this script.
+## Like this project?
+If you find this project helpful, please consider giving it a ⭐ on [GitHub](https://github.com/yourusername/auto-dm-twitter)!
 
----
-
-**Developed by [1ns1de]**

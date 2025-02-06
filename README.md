@@ -1,115 +1,153 @@
-# Auto DM Twitter Bot
+# Twitter Auto DM Bot 🤖
 
-## Overview
-This script automates sending Direct Messages (DM) on Twitter using Selenium. It supports multiple users, reads usernames and messages from text files, and logs the DM status in a CSV file. The bot also supports cookie-based login to avoid repeated manual authentication.
+An automated Twitter Direct Message sender built with Python and Selenium. This bot allows you to send personalized direct messages to multiple Twitter users automatically, with customizable delay times and cookie management.
 
-## Features
-- **Automatic DM sending**: Reads usernames and messages from files and sends DMs.
-- **Cookie-based login**: Saves and loads login cookies to avoid manual authentication.
-- **Custom delay settings**: Allows setting custom delays between messages to avoid detection.
-- **Logs message status**: Saves sent message statuses in a CSV file.
-- **Manual login option**: Allows manual login if cookies are not available.
-- **Error handling**: Handles missing files and failed DM attempts gracefully.
-- **Automatic folder creation**: Ensures required directories (e.g., `cookies/`) are created if missing.
+## ✨ Features
 
-## Prerequisites
-### Install Dependencies
-Ensure you have Python installed (Python 3.x recommended). Install the required dependencies using:
-```sh
-pip install selenium chromedriver-autoinstaller tqdm colorama
-```
+- **Cookie-based Authentication**: Saves login sessions to avoid frequent logins
+- **Customizable Messages**: Support for both single and multiple message templates
+- **Smart Delay System**: Adjustable delay between messages to avoid spam detection
+- **Progress Tracking**: Real-time progress updates with tqdm
+- **Error Handling**: Comprehensive error handling and logging
+- **CSV Logging**: Tracks message delivery status for each user
+- **User-friendly Interface**: Clean CLI interface with colored output
 
-### Install ChromeDriver
-This script automatically installs the required ChromeDriver version using `chromedriver-autoinstaller`.
+## 🛠️ Requirements
 
-## Setup Instructions
-### 1. Clone the Repository
-```sh
-git clone https://github.com/yourusername/auto-dm-twitter.git
-cd auto-dm-twitter
-```
+- Python 3.7+
+- Chrome Browser
+- Required Python packages:
+  ```
+  selenium>=4.0.0
+  chromedriver-autoinstaller>=0.4.0
+  tqdm
+  colorama
+  ```
 
-### 2. Setup Twitter Login
-Before running the bot, you need to log in and save cookies:
-```sh
-python dm.py
-```
-Select option **1. Start Selenium (manual login and save cookies)** and log in manually. The bot will save cookies for future logins.
+## 🛋️ Installation
 
-### 3. Prepare User Data
-Create the following files in the script directory:
-- `data.txt`: Contains Twitter usernames (one per line).
-- `message.txt`: Contains messages (one per line). If there are fewer messages than usernames, messages will repeat.
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/yourusername/twitter-auto-dm.git
+   cd twitter-auto-dm
+   ```
 
-Example `data.txt`:
-```
-user1
-user2
-user3
-```
+2. Install required packages:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Example `message.txt`:
-```
-Hello! How are you?
-This is an automated message.
-```
+## 📝 Configuration
 
-### 4. Start Auto DM
-Run the script and select option **2. Start Auto DM Twitter**:
-```sh
-python dm.py
-```
-The bot will send messages with random delays.
+1. Create required files in the project directory:
+   - `data.txt`: List of target usernames (one per line)
+   - `message.txt`: Message template(s) to send
+   - A `cookies` folder will be automatically created
 
-### 5. Adjust Delay Settings (Optional)
-You can customize the delay between messages by selecting **3. Update Delay Settings**.
+2. Format examples:
+   - `data.txt`:
+     ```
+     username1
+     username2
+     username3
+     ```
+   - `message.txt`:
+     ```
+     Hello {username},
+     This is my message.
+     ```
 
-## Output Files
-- **`dm_log.csv`**: Logs the status of each sent DM.
-  - Format: `Username, Status`
-  - Example:
-    ```csv
-    Username,Status
-    user1,Sent
-    user2,Failed to send DM
-    ```
-- **Cookies (`cookies/twitter_<account>.pkl`)**: Stores session cookies for automatic login.
+## 🚀 Usage
 
-## Automatic Folder Creation
-The script ensures that the necessary folders are created automatically. If the `cookies` folder does not exist, it will be created at runtime:
-```python
-if not os.path.exists(COOKIES_FOLDER):
-    os.makedirs(COOKIES_FOLDER)
-```
-This ensures smooth execution without requiring manual folder creation.
+1. Run the script:
+   ```bash
+   python dm.py
+   ```
 
-## Error Handling
-- If the script cannot find `data.txt` or `message.txt`, it will display an error message.
-- If a DM fails to send, it will log the failure in `dm_log.csv`.
-- If login cookies are missing, the script will prompt manual login.
+2. Available options in the menu:
+   - **Option 1**: Start Selenium (manual login and save cookies)
+   - **Option 2**: Start Auto DM Twitter
+   - **Option 3**: Update Delay Settings
+   - **Option 4**: Exit
 
-## Notes
-- Ensure Chrome is installed and updated.
-- Use this bot responsibly to comply with Twitter's policies.
-- This script does **not** bypass Twitter's DM limits or restrictions.
+3. First-time setup:
+   - Choose Option 1
+   - Log in to Twitter manually when prompted
+   - Wait for cookies to be saved
 
-## Contributing
-Contributions are welcome! To contribute:
-1. Fork this repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Commit your changes (`git commit -m 'Add new feature'`).
-4. Push to the branch (`git push origin feature-branch`).
-5. Open a Pull Request.
+4. Sending messages:
+   - Choose Option 2
+   - The bot will automatically:
+     - Load saved cookies
+     - Search for each username
+     - Send messages with specified delays
+     - Log results to CSV
 
-## License
-This script is provided "as is" without warranty of any kind. Use at your own risk.
+## ⚙️ Customization
 
-## Author
-[Your Name]
+### Delay Settings
+- Default delay: 10-40 seconds between messages
+- Can be modified through Option 3 in the menu
+- Recommended to keep delays random and reasonable
 
-## Support
-If you encounter any issues, feel free to open an issue on [GitHub](https://github.com/yourusername/auto-dm-twitter/issues).
+### Message Format
+- Supports both single and multiple messages
+- If multiple messages are provided, they'll be used in rotation
+- Can include basic formatting
 
-## Like this project?
-If you find this project helpful, please consider giving it a ⭐ on [GitHub](https://github.com/yourusername/auto-dm-twitter)!
+## 📊 Logging
+
+The bot creates `dm_log.csv` with the following information:
+- Username
+- Message delivery status
+- Timestamp
+
+## ⚠️ Important Notes
+
+1. **Rate Limiting**:
+   - Use reasonable delays between messages
+   - Monitor Twitter's rate limits
+   - Avoid sending too many messages in a short time
+
+2. **Account Safety**:
+   - Use with caution
+   - Follow Twitter's terms of service
+   - Avoid spam-like behavior
+
+3. **Error Handling**:
+   - The bot includes comprehensive error handling
+   - Failed messages are logged
+   - Interruptions can be handled gracefully
+
+## 🔒 Security
+
+- Cookies are stored locally in the `cookies` folder
+- No passwords are stored
+- Use on trusted machines only
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📚 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 👨‍💻 Author
+
+- **1ns1de**
+- GitHub: [@1ns1de1ns1de](https://github.com/1ns1de1ns1de)
+
+## 🙏 Acknowledgments
+
+- Selenium WebDriver team
+- Python community
+- All contributors and testers
+
+## ⚠️ Disclaimer
+
+This bot is for educational purposes only. Use at your own risk and responsibility. The author is not responsible for any misuse or any Twitter account restrictions that may result from using this bot.
+
+---
+Made with ❤️ by 1ns1de
 

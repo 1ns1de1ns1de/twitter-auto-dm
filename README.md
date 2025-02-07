@@ -28,7 +28,7 @@ An automated Twitter Direct Message sender built with Python and Selenium. This 
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/twitter-auto-dm.git
+   git clone https://github.com/1ns1de1ns1de/twitter-auto-dm.git
    cd twitter-auto-dm
    ```
 
